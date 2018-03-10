@@ -35,16 +35,16 @@ public class MyServlet extends HttpServlet {
 		String postgresqluser = System.getenv("POSTGRESQL_USER");
 		
 		
-		response.getWriter().append(postgresqlDatabase);
-		response.getWriter().append(postgresqlpwd);
-		response.getWriter().append(postgresqluser);
+		response.getWriter().append("qweqweqe"+postgresqlDatabase);
+		response.getWriter().append("qweqweqe"+postgresqlpwd);
+		response.getWriter().append("qweqweqe"+postgresqluser);
 		
 		response.getWriter().append("HI Mohit ").append(request.getContextPath());
  
 		
 		System.out.println("-------- PostgreSQL "
 				+ "JDBC Connection Testing ------------");
-		response.getWriter().append("HI Mohit 1111111111");
+		response.getWriter().append("HI Mohit ZZZZZZZZZZZZ");
 		try {
 
 			Class.forName("org.postgresql.Driver");
