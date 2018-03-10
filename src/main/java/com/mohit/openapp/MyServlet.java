@@ -29,6 +29,16 @@ public class MyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		String postgresqlDatabase = System.getenv("POSTGRESQL_DATABASE");
+		String postgresqlpwd = System.getenv("POSTGRESQL_PASSWORD");
+		String postgresqluser = System.getenv("POSTGRESQL_USER");
+		
+		
+		response.getWriter().append(postgresqlDatabase);
+		response.getWriter().append(postgresqlpwd);
+		response.getWriter().append(postgresqluser);
+		
 		response.getWriter().append("HI Mohit ").append(request.getContextPath());
  
 		
