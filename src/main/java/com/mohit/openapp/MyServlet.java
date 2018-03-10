@@ -69,8 +69,8 @@ public class MyServlet extends HttpServlet {
 		try {
 
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://samajappdb:5432/"+postgresqlDatabase,postgresqluser,
-					postgresqlpwd);
+					"jdbc:postgresql://samajappdb:5432/samajappdb","samajappdb",
+					"samajappdb");
 			response.getWriter().append("HI Mohit 3333333333333333333333333");
 		} catch (SQLException e) {
 
