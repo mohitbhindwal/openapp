@@ -60,6 +60,10 @@ public class MyServlet extends HttpServlet {
 
 		System.out.println("PostgreSQL JDBC Driver Registered!");
 
+		
+		System.out.println("@@@@@@@@"+postgresqlDatabase);
+		System.out.println("@@@@@@@@"+postgresqluser);
+		System.out.println("@@@@@@@@"+postgresqlpwd);
 		Connection connection = null;
 
 		try {
