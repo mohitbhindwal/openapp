@@ -3,12 +3,16 @@ package com.mohit.openapp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+ 
 
 public class MTest {
 	
 	
 	static {
- 
+		
+	}
+
+	public static void main(String[] args) { 
 		
 		System.out.println("-------- PostgreSQL "
 				+ "JDBC Connection Testing ------------");
@@ -22,7 +26,7 @@ public class MTest {
 			System.out.println("Where is your PostgreSQL JDBC Driver? "
 					+ "Include in your library path!");
 			e.printStackTrace();
-		 
+			return;
 
 		}
 
@@ -40,7 +44,7 @@ public class MTest {
 
 			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
-		 
+			return;
 
 		}
 
@@ -49,10 +53,7 @@ public class MTest {
 		} else {
 			System.out.println("Failed to make connection!");
 		}
-	
 	}
-
-	public static void main(String[] args) {}
 
 		
 		
