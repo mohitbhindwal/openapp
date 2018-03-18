@@ -41,11 +41,13 @@ public class MyServlet extends HttpServlet {
 	    // Create path components to save the file
 	    final String path = new File(".").getAbsolutePath();
 	    
-	    final String fileName = getFileName(request);
+	    final String fileName =   path + "test.png";//getFileName(request);
 
 	    OutputStream out = null;
 	    InputStream filecontent = null;
 	    final PrintWriter writer = response.getWriter();
+	    
+	    
 	    writer.println("New file " + fileName + " created at " + path);
 	    try {
 	        out = new FileOutputStream(new File(path + File.separator
