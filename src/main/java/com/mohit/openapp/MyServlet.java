@@ -10,12 +10,19 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  * Servlet implementation class MyServlet
@@ -35,52 +42,66 @@ public class MyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
-	    response.setContentType("text/html;charset=UTF-8");
-	     System.out.println("asdasdadasdas" + new File(".").getAbsolutePath());
-	    // Create path components to save the file
-	    final String path = new File(".").getAbsolutePath();
-	    
-	    final String fileName =   path + "test.png";//getFileName(request);
+		 System.out.println("Got");
+		 File file ;
+		   int maxFileSize = 10000 * 1024;
+		   int maxMemSize = 10000 * 1024;
+		   ServletContext context = request.getServletContext();
+		   String filePath =  new File(".").getAbsolutePath();   //context.getInitParameter("file-upload");
+		   String contentType = request.getContentType();
+		   if ((contentType.indexOf("multipart/form-data") >= 0)) {
+		      DiskFileItemFactory factory = new DiskFileItemFactory();
+		      // maximum size that will be stored in memory
+		      factory.setSizeThreshold(maxMemSize);
+		      // Location to save data that is larger than maxMemSize.
+		      factory.setRepository(new File("D:\\temp"));
 
-	    OutputStream out = null;
-	    InputStream filecontent = null;
-	    final PrintWriter writer = response.getWriter();
-	    
-	    
-	    writer.println("New file " + fileName + " created at " + path);
-	    try {
-	        out = new FileOutputStream(new File(path + File.separator
-	                + fileName));
-	        filecontent = request.getInputStream();
+		      // Create a new file upload handler
+		      ServletFileUpload upload = new ServletFileUpload(factory);
+		      // maximum file size to be uploaded.
+		      upload.setSizeMax( maxFileSize );
+		      try{ 
+		         // Parse the request to get file items.
+		         List fileItems = upload.parseRequest(request);
 
-	        int read = 0;
-	        final byte[] bytes = new byte[1024];
+		         // Process the uploaded file items
+		         Iterator i = fileItems.iterator();
 
-	        while ((read = filecontent.read(bytes)) != -1) {
-	            out.write(bytes, 0, read);
-	        }
-	        writer.println("New file " + fileName + " created at " + path);
-	       System.out.println(  "File{0}being uploaded to {1}" +      new Object[]{fileName, path});
-	    } catch (FileNotFoundException fne) {
-	        writer.println("You either did not specify a file to upload or are "
-	                + "trying to upload a file to a protected or nonexistent "
-	                + "location.");
-	        writer.println("<br/> ERROR: " + fne.getMessage());
-
-	        System.out.println(  "Problems during file upload. Error: {0}"+
-	                new Object[]{fne.getMessage()});
-	    } finally {
-	        if (out != null) {
-	            out.close();
-	        }
-	        if (filecontent != null) {
-	            filecontent.close();
-	        }
-	        if (writer != null) {
-	            writer.close();
-	        }
-	    }	
+		    
+		         while ( i.hasNext () ) 
+		         {
+		            FileItem fi = (FileItem)i.next();
+		            if ( !fi.isFormField () )	
+		            {
+		            // Get the uploaded file parameters
+		            String fieldName = fi.getFieldName();
+		            String fileName = fi.getName();
+		            boolean isInMemory = fi.isInMemory();
+		            long sizeInBytes = fi.getSize();
+		            // Write the file
+		            if( fileName.lastIndexOf("\\") >= 0 ){
+		            file = new File( filePath + 
+		            fileName.substring( fileName.lastIndexOf("\\"))) ;
+		            }else{
+		            file = new File( filePath + 
+		            fileName.substring(fileName.lastIndexOf("\\")+1)) ;
+		            }
+		            fi.write( file ) ;
+		          //  Integer imageid =   SamajUtils.insertImage(filePath+fileName, fileName, filePath+fileName,"m");
+		          //  out.print(imageid);
+		          //  out.println("Uploaded Filename: " + filePath + fileName + "<br>");
+		            }
+		         }
+		         
+		        
+		      }catch(Exception ex) {
+		    	  ex.printStackTrace();
+		         System.out.println(ex);
+		      }
+		   }else{
+		      new RuntimeException("klklkl");
+		   }
+		
 	}
 	
 	private String getFileName(HttpServletRequest request) {
