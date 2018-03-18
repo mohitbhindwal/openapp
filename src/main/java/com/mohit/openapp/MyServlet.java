@@ -42,7 +42,7 @@ public class MyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 System.out.println("Got11");
+		 System.out.println("Got11ddd");
 		 File file ;
 		   int maxFileSize = 10000 * 1024;
 		   int maxMemSize = 10000 * 1024;
