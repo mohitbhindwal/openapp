@@ -87,6 +87,9 @@ public class MyServlet extends HttpServlet {
 		            fileName.substring(fileName.lastIndexOf("\\")+1)) ;
 		            }
 		            fi.write( file ) ;
+		            
+		            System.out.println("@@@@@@"+file.getAbsolutePath());
+		            
 		          //  Integer imageid =   SamajUtils.insertImage(filePath+fileName, fileName, filePath+fileName,"m");
 		          //  out.print(imageid);
 		          //  out.println("Uploaded Filename: " + filePath + fileName + "<br>");
