@@ -42,14 +42,18 @@ public class MyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 System.out.println("Got");
+		 System.out.println("Got11");
 		 File file ;
 		   int maxFileSize = 10000 * 1024;
 		   int maxMemSize = 10000 * 1024;
 		   ServletContext context = request.getServletContext();
 		   String filePath =  new File(".").getAbsolutePath();   //context.getInitParameter("file-upload");
 		   String contentType = request.getContentType();
+		   System.out.println("Got22"+filePath);
+
 		   if ((contentType.indexOf("multipart/form-data") >= 0)) {
+			   
+			   System.out.println("Got333");
 		      DiskFileItemFactory factory = new DiskFileItemFactory();
 		      // maximum size that will be stored in memory
 		      factory.setSizeThreshold(maxMemSize);
@@ -61,6 +65,9 @@ public class MyServlet extends HttpServlet {
 		      // maximum file size to be uploaded.
 		      upload.setSizeMax( maxFileSize );
 		      try{ 
+		    	  
+		    	   System.out.println("Got444");
+
 		         // Parse the request to get file items.
 		         List fileItems = upload.parseRequest(request);
 
@@ -70,6 +77,8 @@ public class MyServlet extends HttpServlet {
 		    
 		         while ( i.hasNext () ) 
 		         {
+		        	   System.out.println("Go5555");
+
 		            FileItem fi = (FileItem)i.next();
 		            if ( !fi.isFormField () )	
 		            {
@@ -96,7 +105,8 @@ public class MyServlet extends HttpServlet {
 		            }
 		         }
 		         
-		        
+		         System.out.println("last");
+
 		      }catch(Exception ex) {
 		    	  ex.printStackTrace();
 		         System.out.println(ex);
