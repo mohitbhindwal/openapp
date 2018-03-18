@@ -1,12 +1,7 @@
 package com.mohit.openapp;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -35,54 +29,40 @@ public class MyServlet extends HttpServlet {
      */
     public MyServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 System.out.println("Got11ddd");
+		 System.out.println("Request received "+ getClass().getName());
 		 File file ;
 		   int maxFileSize = 10000 * 1024;
 		   int maxMemSize = 10000 * 1024;
 		   ServletContext context = request.getServletContext();
-		   String filePath =  new File(".").getAbsolutePath();   //context.getInitParameter("file-upload");
+		   String filePath = context.getInitParameter("file-upload");
 		   String contentType = request.getContentType();
-		   System.out.println("Got22"+filePath);
+		   System.out.println("server filePath dir = "+filePath);
 
 		   if ((contentType.indexOf("multipart/form-data") >= 0)) {
-			   
-			   System.out.println("Got333");
 		      DiskFileItemFactory factory = new DiskFileItemFactory();
 		      // maximum size that will be stored in memory
 		      factory.setSizeThreshold(maxMemSize);
 		      // Location to save data that is larger than maxMemSize.
-		      factory.setRepository(new File("D:\\temp"));
-
+		      factory.setRepository(new File("/home/jboss/tmp/"));
 		      // Create a new file upload handler
 		      ServletFileUpload upload = new ServletFileUpload(factory);
 		      // maximum file size to be uploaded.
 		      upload.setSizeMax( maxFileSize );
 		      try{ 
-		    	  
-		    	   System.out.println("Got444");
-
-		         // Parse the request to get file items.
 		         List fileItems = upload.parseRequest(request);
-
-		         // Process the uploaded file items
 		         Iterator i = fileItems.iterator();
-
-		    
 		         while ( i.hasNext () ) 
 		         {
-		        	   System.out.println("Go5555");
-
 		            FileItem fi = (FileItem)i.next();
 		            if ( !fi.isFormField () )	
 		            {
-		            // Get the uploaded file parameters
 		            String fieldName = fi.getFieldName();
 		            String fileName = fi.getName();
 		            boolean isInMemory = fi.isInMemory();
@@ -96,17 +76,13 @@ public class MyServlet extends HttpServlet {
 		            fileName.substring(fileName.lastIndexOf("\\")+1)) ;
 		            }
 		            fi.write( file ) ;
-		            
-		            System.out.println("@@@@@@"+file.getAbsolutePath());
-		            
+		            System.out.println("File path is "+file.getAbsolutePath());
 		          //  Integer imageid =   SamajUtils.insertImage(filePath+fileName, fileName, filePath+fileName,"m");
 		          //  out.print(imageid);
 		          //  out.println("Uploaded Filename: " + filePath + fileName + "<br>");
 		            }
 		         }
-		         
-		         System.out.println("last");
-
+		         System.out.println("done");
 		      }catch(Exception ex) {
 		    	  ex.printStackTrace();
 		         System.out.println(ex);

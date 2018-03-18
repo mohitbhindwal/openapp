@@ -12,17 +12,15 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>MyServlet</servlet-name>
-  	<url-pattern>/test</url-pattern>
+  	<url-pattern>/upload</url-pattern>
   </servlet-mapping>
-  <servlet>
-  	<servlet-name>DownloadServlet</servlet-name>
-  	<display-name>DownloadServlet</display-name>
-  	<description></description>
-  	<servlet-class>com.mohit.openapp.DownloadServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>DownloadServlet</servlet-name>
-  	<url-pattern>/download</url-pattern>
-  </servlet-mapping>
+  
+ 
+  
+  <context-param>
+		<description>Location to store uploaded file</description>
+		<param-name>file-upload</param-name>
+		<param-value>/home/jboss/images/</param-value>
+	</context-param>
   
 </web-app>
