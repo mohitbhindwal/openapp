@@ -37,8 +37,8 @@ public class MTest {
 		try {
 
 			connection = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/mohitdb", "mohitdb",
-					"mohitdb");
+					"jdbc:postgresql://172.30.0.1:5432/samajappdb", "samajappdb",
+					"samajappdb");
 
 		} catch (SQLException e) {
 
