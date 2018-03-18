@@ -40,8 +40,8 @@ public class MyServlet extends HttpServlet {
 	     System.out.println("asdasdadasdas" + new File(".").getAbsolutePath());
 	    // Create path components to save the file
 	    final String path = new File(".").getAbsolutePath();
-	    final Part filePart = request.getPart("uploadedfile");
-	    final String fileName = getFileName(filePart);
+	    
+	    final String fileName = getFileName(request);
 
 	    OutputStream out = null;
 	    InputStream filecontent = null;
@@ -50,7 +50,7 @@ public class MyServlet extends HttpServlet {
 	    try {
 	        out = new FileOutputStream(new File(path + File.separator
 	                + fileName));
-	        filecontent = filePart.getInputStream();
+	        filecontent = request.getInputStream();
 
 	        int read = 0;
 	        final byte[] bytes = new byte[1024];
@@ -81,10 +81,10 @@ public class MyServlet extends HttpServlet {
 	    }	
 	}
 	
-	private String getFileName(final Part part) {
-	    final String partHeader = part.getHeader("content-disposition");
+	private String getFileName(HttpServletRequest request) {
+	    final String partHeader = request.getHeader("content-disposition");
 	   System.out.println("Part Header ="+ partHeader);
-	    for (String content : part.getHeader("content-disposition").split(";")) {
+	    for (String content : request.getHeader("content-disposition").split(";")) {
 	        if (content.trim().startsWith("filename")) {
 	            return content.substring(
 	                    content.indexOf('=') + 1).trim().replace("\"", "");
