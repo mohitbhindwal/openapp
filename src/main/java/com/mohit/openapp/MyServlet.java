@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,7 +45,11 @@ public class MyServlet extends HttpServlet {
 		   String filePath = context.getInitParameter("file-upload");
 		   String contentType = request.getContentType();
 		   System.out.println("server filePath dir = "+filePath);
-
+		   
+		   if(!new File(filePath).exists())
+			   new File(filePath).mkdirs();
+		   
+		   
 		   if ((contentType.indexOf("multipart/form-data") >= 0)) {
 		      DiskFileItemFactory factory = new DiskFileItemFactory();
 		      // maximum size that will be stored in memory
@@ -77,9 +82,19 @@ public class MyServlet extends HttpServlet {
 		            }
 		            fi.write( file ) ;
 		            System.out.println("File path is "+file.getAbsolutePath());
-		          //  Integer imageid =   SamajUtils.insertImage(filePath+fileName, fileName, filePath+fileName,"m");
-		          //  out.print(imageid);
-		          //  out.println("Uploaded Filename: " + filePath + fileName + "<br>");
+		            HashMap map = new HashMap();
+		            map.put("userid",request.getParameter("userid"));
+		            map.put("username",request.getParameter("username"));
+		            map.put("password",request.getParameter("password"));
+		            map.put("address",request.getParameter("address"));
+		            map.put("city",request.getParameter("city"));
+		            map.put("contactno",request.getParameter("contactno"));
+		            map.put("gender",request.getParameter("gender"));
+		            map.put("dob",request.getParameter("dob"));
+		            map.put("profilepicname",file.getName());
+		            map.put("profilepicpath",file.getAbsolutePath());
+                    System.out.println(map);		            
+                    Utils.registerUser(map);
 		            }
 		         }
 		         System.out.println("done");
@@ -121,20 +136,7 @@ public class MyServlet extends HttpServlet {
 		String postgresqlDatabase = System.getenv("POSTGRESQL_DATABASE");
 		String postgresqlpwd = System.getenv("POSTGRESQL_PASSWORD");
 		String postgresqluser = System.getenv("POSTGRESQL_USER");
-		
-		
-		response.getWriter().append("qweqweqe"+postgresqlDatabase);
-		response.getWriter().append("qweqweqe"+postgresqlpwd);
-		response.getWriter().append("qweqweqe"+postgresqluser);
-		
-		response.getWriter().append("HI Mohit ").append(request.getContextPath());
- 
-		
-		System.out.println("-------- PostgreSQL "
-				+ "JDBC Connection Testing ------------");
-		response.getWriter().append("HI Mohit ZZZZZZZZZZZZ");
 		try {
-
 			Class.forName("org.postgresql.Driver");
 			response.getWriter().append("HI Mohit 222222222222");
 		} catch (ClassNotFoundException e) {
@@ -145,37 +147,23 @@ public class MyServlet extends HttpServlet {
 			return;
 
 		}
-
 		System.out.println("PostgreSQL JDBC Driver Registered!");
-
-		
-		System.out.println("@@@@@@@@"+postgresqlDatabase);
-		System.out.println("@@@@@@@@"+postgresqluser);
-		System.out.println("@@@@@@@@"+postgresqlpwd);
 		Connection connection = null;
-
 		try {
-
 			connection = DriverManager.getConnection(
 					"jdbc:postgresql://samajappdb:5432/samajappdb","samajappdb",
 					"samajappdb");
-			response.getWriter().append("HI Mohit 3333333333333333333333333");
+			response.getWriter().append("con ");
 		} catch (SQLException e) {
-
 			System.out.println("Connection Failed! Check output console");
 			e.printStackTrace();
 			return;
-
 		}
-
 		if (connection != null) {
 			System.out.println("You made it, take control your database now!");
 			response.getWriter().append("HI Mohit 666666666666666");
 		} else {
 			System.out.println("Failed to make connection!");
 		}
-	
-	
 	}
-
 }

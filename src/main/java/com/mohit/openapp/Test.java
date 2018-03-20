@@ -26,7 +26,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public class Test {
 
 	 public static void main(String[] args) {
-		 
 
 		 	MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
               File file  = new File("D:/Koala.jpg");
