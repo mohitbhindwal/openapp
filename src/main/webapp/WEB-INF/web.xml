@@ -10,9 +10,19 @@
   	<description></description>
   	<servlet-class>com.mohit.openapp.MyServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ClientServlet</servlet-name>
+  	<display-name>ClientServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.mohit.openapp.ClientServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>MyServlet</servlet-name>
   	<url-pattern>/upload</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ClientServlet</servlet-name>
+  	<url-pattern>/request</url-pattern>
   </servlet-mapping>
   
  
