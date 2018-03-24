@@ -40,23 +40,11 @@ public class ConnectionFactory {
 	static public Connection getConnection() {
 		Connection c = null;
 		try {
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bhawsarsamaj", "postgres", "postgres");
+		//	c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bhawsarsamaj", "postgres", "postgres");
 			c = source.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 			source.close();
-			source = new PGPoolingDataSource();
-			source.setDataSourceName("A Data Source");
-			source.setServerName("127.7.240.130:5432"); // localhost:5444
-			source.setDatabaseName("bhawsarsamaj"); // bhawsarsamaj
-			source.setUser("adminbubmaeh"); // postgres
-			source.setPassword("Tf3KcHb6XpGc"); // postgres
-			source.setMaxConnections(25);
-			try {
-				Class.forName("org.postgresql.Driver");
-			} catch (ClassNotFoundException ce) {
-				ce.printStackTrace();
-			}
 		}
 
 		return c;
