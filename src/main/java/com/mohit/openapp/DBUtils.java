@@ -41,6 +41,7 @@ public class DBUtils {
 		Connection connection = ConnectionFactory.getConnection();
 		try {
 
+			System.out.println("inside saveUserInDB"+user);
 			String sql = "insert into users(userid,username,password,dob,address,contactno,"
 					+ "city,gender,profileid values(?,?,?,?,?,?,?,?,?) ";
 
@@ -55,6 +56,7 @@ public class DBUtils {
 			ps.setLong(8, user.getProfileid());
 	 		ps.execute();
 			ps.close();
+			System.out.println("DBDONE");
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 			ex.printStackTrace();

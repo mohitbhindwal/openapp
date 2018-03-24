@@ -29,6 +29,8 @@ public class ClientServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		System.out.println("Reqyest received "+request.getParameterMap());
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		 
 		 String moto = request.getParameter("moto");
@@ -54,16 +56,19 @@ public class ClientServlet extends HttpServlet {
 		try {
 		PrintWriter out;
 		out = response.getWriter();
+		System.out.println("inside registerUser");
 		
 		Enumeration<String> parameterNames = request.getParameterNames();
         while (parameterNames.hasMoreElements()) {
             String paramName = parameterNames.nextElement();
             out.write("##########");
             out.write("paramName"+paramName);
+            System.out.println("paramName"+paramName);
              String[] paramValues = request.getParameterValues(paramName);
             for (int i = 0; i < paramValues.length; i++) {
                 String paramValue = paramValues[i];
                 out.write("paramValue = " + paramValue);
+                System.out.println("paramValue = " + paramValue);
                
             }
         }
