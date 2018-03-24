@@ -18,7 +18,7 @@ public class Utils {
 	public static String registerUser(HashMap map ){
 		String result = "SUCCESS";
 		User user = new User();
-		user.setUserId(map.get("userid").toString());
+		user.setUserid(map.get("userid").toString());
 		user.setUsername(map.get("username").toString());
 		user.setPassword(map.get("password").toString());
 		user.setCity(map.get("city").toString());
