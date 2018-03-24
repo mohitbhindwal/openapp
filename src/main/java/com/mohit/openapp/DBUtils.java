@@ -38,6 +38,7 @@ public class DBUtils {
 
 	public static boolean saveUserInDB(User user) {
 		boolean result = true;
+		System.out.println("saveUserInDB");
 		Connection connection = ConnectionFactory.getConnection();
 		try {
 

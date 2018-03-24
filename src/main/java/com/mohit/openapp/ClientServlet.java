@@ -2,6 +2,7 @@ package com.mohit.openapp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 
@@ -30,7 +31,8 @@ public class ClientServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("Reqyest received "+request.getParameterMap());
+		System.out.println("Reqyest received keys "+request.getParameterMap().keySet());
+		System.out.println("Reqyest received "+ Arrays.asList(request.getParameterMap().values()));
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		 
 		 String moto = request.getParameter("moto");
