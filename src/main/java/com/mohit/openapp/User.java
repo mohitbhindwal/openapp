@@ -21,6 +21,15 @@ public class User {
 	
 
 	
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", username=" + username + ", password=" + password + ", address=" + address
+				+ ", city=" + city + ", contactno=" + contactno + ", profileid=" + profileid + ", gender=" + gender
+				+ ", dob=" + dob + "]";
+	}
+
+
+
 	public Date getDob() {
 		return dob;
 	}
@@ -32,9 +41,7 @@ public class User {
 	public String getId() {
 		return userid;
 	}
-	public void setUserId(String userid) {
-		this.userid = userid;
-	}
+ 
 	public String getPassword() {
 		return password;
 	}

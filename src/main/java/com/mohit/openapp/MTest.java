@@ -6,11 +6,13 @@ import java.sql.SQLException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -25,6 +27,7 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -34,36 +37,60 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MTest {
 
-	static String SERVER_PATH = "http://openapp-bhawsarapp.1d35.starter-us-east-1.openshiftapps.com/upload";
+	static String SERVER_PATH = "http://openapp-bhawsarapp.1d35.starter-us-east-1.openshiftapps.com/request?test=asd";
 
-	public static void main(String[] args) {
-
+	public static void main(String[] args) {}
+	
+	
+	static String getResponseFromServer(HashMap map){
+		String responsestr = null;
+		System.out.println("==>"+map);
+		if(map.size()>0){
+			ArrayList<NameValuePair> postParameters= new ArrayList<NameValuePair>();
+		for(Object keys  : map.keySet()){
+			postParameters.add(new BasicNameValuePair(keys.toString(), map.get(keys).toString()));
+		}
+		
 		String responseFromServer = null;
-
 		HttpClient client = new DefaultHttpClient();
 		HttpPost postRequest = new HttpPost(SERVER_PATH);
-		ArrayList<NameValuePair> postParameters;
-		postParameters = new ArrayList<NameValuePair>();
-		postParameters.add(new BasicNameValuePair("param1", "param1_value"));
-		postParameters.add(new BasicNameValuePair("param2", "param2_value"));
 		HttpResponse response;
 		try {
 			response = client.execute(postRequest);
-			responseFromServer = response.getStatusLine().getReasonPhrase();
 			if (response != null) {
 				System.out.println("Response : " + response);
 				int code = response.getStatusLine().getStatusCode();
 				System.out.println(response.getStatusLine().getStatusCode());
 				if (code == 200) {
-					System.out.println(code);
+					   InputStream ips  = response.getEntity().getContent();
+				        BufferedReader buf = new BufferedReader(new InputStreamReader(ips,"UTF-8"));
+		 		        StringBuilder sb = new StringBuilder();
+				        String s;
+				        while(true )
+				        {
+				            s = buf.readLine();
+				            if(s==null || s.length()==0)
+				                break;
+				            sb.append(s);
+				        }
+				        responsestr = sb.toString();
+				        System.out.println(responsestr);
+				        buf.close();
+				        ips.close();
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			client.getConnectionManager().shutdown();
+		}}else {
+			System.out.println("Map is empty");
 		}
+		return responsestr;
 	}
 
 	void postgres() {
