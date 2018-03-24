@@ -36,10 +36,10 @@ public class ClientServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		 
 		 String moto = request.getParameter("moto");
-		
-		 if(moto == "registeruser"){
+		System.out.println(moto);
+		// if(moto == "registeruser"){
 			 registerUser(request, response);
-		 }
+		// }
 		
 		
 	
