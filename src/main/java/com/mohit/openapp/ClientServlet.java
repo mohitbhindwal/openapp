@@ -32,9 +32,8 @@ public class ClientServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		System.out.println("Reqyest received keys "+request.getParameterMap().keySet());
-		System.out.println("Reqyest received "+ Arrays.asList(request.getParameterMap().values()));
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		 
+	 
+	 	 
 		 String moto = request.getParameter("moto");
 		System.out.println(moto);
 		// if(moto == "registeruser"){
