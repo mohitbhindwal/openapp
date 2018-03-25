@@ -53,8 +53,9 @@ public class DBUtils {
 			ps.setDate(4, user.getDob());
 			ps.setString(5, user.getAddress());
 			ps.setString(6, user.getContactno());
-			ps.setString(7, user.getGender());
-			ps.setLong(8, user.getProfileid());
+			ps.setString(7, user.getCity());
+			ps.setString(8, user.getGender());
+			ps.setLong(9, user.getProfileid());
 	 		ps.execute();
 			ps.close();
 			System.out.println("DBDONE");
