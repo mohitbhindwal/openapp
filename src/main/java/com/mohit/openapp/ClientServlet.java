@@ -61,12 +61,48 @@ public class ClientServlet extends HttpServlet {
 		if (method.equalsIgnoreCase("getAllUsers")) {
 			getAllUsers(request, response);
 		}
+		
+		if (method.equalsIgnoreCase("downloadImage")) {
+			downloadImage(request, response);
+		}
+		
+		
 
 	}
 
 	public static void main(String[] args) throws Exception {
 
 	}
+	
+	private static void downloadImage(HttpServletRequest request, HttpServletResponse response) {
+		
+		Connection con = null;
+		byte[] result = null;
+		try {
+			con = ConnectionFactory.getConnection();
+			Statement smt = con.createStatement();
+			Long id = Long.parseLong(request.getParameter("imageid"));
+			System.out.println("Executing image ### id == " + id);
+			ResultSet rs = smt.executeQuery("select imgbytes from images where id = " + id);
+			if (rs.next()) {
+				result = rs.getBytes(1);
+			}
+			System.out.println("Result ########"+result.length);
+			 response.getOutputStream().write(result, 0, result.length);
+			 response.getOutputStream().flush();
+		     rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		System.out.println(result);
+ 	}
 
 	private static String getAllUsers(HttpServletRequest request, HttpServletResponse response) {
 		Connection con = null;
