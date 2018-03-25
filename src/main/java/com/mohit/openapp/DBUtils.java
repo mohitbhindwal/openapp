@@ -44,7 +44,7 @@ public class DBUtils {
 
 			System.out.println("inside saveUserInDB"+user);
 			String sql = "insert into users(userid,username,password,dob,address,contactno,"
-					+ "city,gender,profileid values(?,?,?,?,?,?,?,?,?) ";
+					+ "city,gender,profileid) values(?,?,?,?,?,?,?,?,?) ";
 
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setString(1, user.getUserid());
