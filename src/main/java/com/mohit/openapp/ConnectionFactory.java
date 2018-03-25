@@ -23,14 +23,14 @@ public class ConnectionFactory {
 
 	private ConnectionFactory() {
 
-	/*	source = new PGPoolingDataSource();
+	 	source = new PGPoolingDataSource();
 		source.setDataSourceName("samajappdb");
 		source.setServerName("samajappdb:5432"); 
 		source.setDatabaseName("samajappdb");  
 		source.setUser("samajappdb");  
 		source.setPassword("samajappdb");  
 		source.setMaxConnections(25);
-	*/	try {
+	 	try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -40,9 +40,10 @@ public class ConnectionFactory {
 	static public Connection getConnection() {
 		Connection c = null;
 		try {
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bhawsarsamaj", "postgres", "postgres");
-		//	c = source.getConnection();
+		//	c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bhawsarsamaj", "postgres", "postgres");
+			c = source.getConnection();
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 			source.close();
 		}
