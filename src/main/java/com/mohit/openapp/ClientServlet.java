@@ -54,11 +54,11 @@ public class ClientServlet extends HttpServlet {
 
 		String method = request.getParameter("method");
 		System.out.println("Request received for" + method);
-		if (method == "registeruser") {
+		if (method.equalsIgnoreCase("registeruser")) {
 			registerUser(request, response);
 		}
 
-		if (method == "getAllUsers") {
+		if (method.equalsIgnoreCase("getAllUsers")) {
 			getAllUsers(request, response);
 		}
 
