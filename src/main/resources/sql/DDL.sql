@@ -17,3 +17,19 @@ city character varying(30),
 gender character varying(6),
 profileid bigint
 );
+
+
+
+create or replace function sql_row_to_json(sql_t text)
+returns json language plpgsql as $function$
+declare rslt json;
+begin
+    execute
+        format($ex$
+            select json_agg(row_to_json(t)) 
+            from (%s) t
+        $ex$, sql_t)
+    into rslt;
+    return rslt;
+end;
+$function$;
