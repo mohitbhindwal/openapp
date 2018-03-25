@@ -2,6 +2,8 @@ package com.mohit.openapp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -81,12 +83,17 @@ public class ClientServlet extends HttpServlet {
         user.setCity(request.getParameter("city"));
         user.setAddress(request.getParameter("address"));
         user.setPassword(request.getParameter("password"));
-        user.setProfileid(System.currentTimeMillis());
+        
+        String strdob = request.getParameter("dob");
+        System.out.println("strdob"+strdob);
+        
+	    user.setDob(new java.sql.Date((new SimpleDateFormat("dd-MM-yyyy")).parse(strdob).getTime()));
+        user.setProfileid(Long.parseLong(request.getParameter("profileid")));
         
         System.out.println(user);
         DBUtils.saveUserInDB(user);   
         out.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;

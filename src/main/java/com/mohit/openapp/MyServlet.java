@@ -82,19 +82,8 @@ public class MyServlet extends HttpServlet {
 		            }
 		            fi.write( file ) ;
 		            System.out.println("File path is "+file.getAbsolutePath());
-		            HashMap map = new HashMap();
-		            map.put("userid",request.getParameter("userid"));
-		            map.put("username",request.getParameter("username"));
-		            map.put("password",request.getParameter("password"));
-		            map.put("address",request.getParameter("address"));
-		            map.put("city",request.getParameter("city"));
-		            map.put("contactno",request.getParameter("contactno"));
-		            map.put("gender",request.getParameter("gender"));
-		            map.put("dob",request.getParameter("dob"));
-		            map.put("profilepicname",file.getName());
-		            map.put("profilepicpath",file.getAbsolutePath());
-                    System.out.println(map);		            
-                    Utils.registerUser(map);
+		            Long profilepicid =  DBUtils.insertProfilePic(file.getName(), file.getAbsolutePath());
+		            response.setHeader("picid", profilepicid+"");
 		            }
 		         }
 		         System.out.println("done");
