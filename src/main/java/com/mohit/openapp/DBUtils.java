@@ -52,9 +52,9 @@ public class DBUtils {
 			ps.setString(3, user.getPassword());
 			ps.setDate(4, user.getDob());
 			ps.setString(5, user.getAddress());
-			ps.setString(7, user.getCity());
-			ps.setString(8, user.getGender());
-			ps.setLong(9, user.getProfileid());
+			ps.setString(6, user.getCity());
+			ps.setString(7, user.getGender());
+			ps.setLong(8, user.getProfileid());
 	 		ps.execute();
 			ps.close();
 			System.out.println("DBDONE");
