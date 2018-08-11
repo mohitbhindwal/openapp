@@ -24,11 +24,11 @@ public class ConnectionFactory {
 	private ConnectionFactory() {
 
 	 	source = new PGPoolingDataSource();
-		source.setDataSourceName("samajappdb");
-		source.setServerName("samajappdb:5432"); 
-		source.setDatabaseName("samajappdb");  
-		source.setUser("samajappdb");  
-		source.setPassword("samajappdb");  
+		source.setDataSourceName("samajappdb1");
+		source.setServerName("samajappdb1:5432"); 
+		source.setDatabaseName("samajappdb1");  
+		source.setUser("samajappdb1");  
+		source.setPassword("samajappdb1");  
 		source.setMaxConnections(25);
 	 	try {
 			Class.forName("org.postgresql.Driver");
